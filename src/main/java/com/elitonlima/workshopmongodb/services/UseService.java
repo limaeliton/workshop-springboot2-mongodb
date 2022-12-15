@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.elitonlima.workshopmongodb.domain.User;
+import com.elitonlima.workshopmongodb.dto.UserDTO;
 import com.elitonlima.workshopmongodb.repository.UseRepository;
 import com.elitonlima.workshopmongodb.services.exception.ObjectNotFoundException;
 
@@ -25,5 +26,17 @@ public class UseService {
 		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 		}
+	
+	// post
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	
+	// retorna um novo usuário
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+	}
+	
+	
 
 }
