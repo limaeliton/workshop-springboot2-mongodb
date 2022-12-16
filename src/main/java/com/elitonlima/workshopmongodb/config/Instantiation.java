@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.elitonlima.workshopmongodb.domain.Post;
 import com.elitonlima.workshopmongodb.domain.User;
+import com.elitonlima.workshopmongodb.dto.AuthorDTO;
 import com.elitonlima.workshopmongodb.repository.PostRepository;
 import com.elitonlima.workshopmongodb.repository.UseRepository;
 
@@ -36,10 +37,13 @@ public class Instantiation implements CommandLineRunner {
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
 		
-		Post post1 = new Post(null, sdf.parse("15/12/2022"), "Viajar", "Vou viajar para Foz. Partil!", maria);
-		Post post2 = new Post(null, sdf.parse("16/12/2022"), "Boa noite", "Vou dormi agora", maria);
-		
+		// primeiro salva os usuários
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
+		
+		Post post1 = new Post(null, sdf.parse("15/12/2022"), "Viajar", "Vou viajar para Foz. Partil!",new AuthorDTO( maria));
+		Post post2 = new Post(null, sdf.parse("16/12/2022"), "Boa noite", "Vou dormi agora", new AuthorDTO( maria));
+		
+		// e depois faz a cópia para o AutoDTO
 		postRepository.saveAll(Arrays.asList(post1,post2));
 
 	}
