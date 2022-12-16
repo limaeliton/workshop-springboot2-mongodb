@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -71,6 +72,19 @@ public class UseResource {
 			service.delete(id);
 			return ResponseEntity.noContent().build();
 		}
+		
+		
+		//metodo para atualizar um  o usuário
+		// ResponseEntity<List<User>> = Objeto sofisticado do spring, emcapsula resposta
+		@PutMapping(value = "/{id}")
+		public ResponseEntity<Void> update(@RequestBody UserDTO objDto , @PathVariable String id) {
+			User obj = service.fromDTO(objDto); // recebe o objeto
+			obj.setId(id);// garante que o obj terá o id da requisição
+			obj = service.update(obj); // Atualiza o objeto no banco
+			return ResponseEntity.noContent().build();
+			
+		}
+		
 	
 
 }
