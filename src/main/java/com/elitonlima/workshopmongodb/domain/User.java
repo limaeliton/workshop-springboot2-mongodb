@@ -6,15 +6,15 @@ import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection= "user") // informa que é do Mongo
-public class User implements Serializable{
+@Document(collection = "user") // informa que é do Mongo
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@Id // chave primária 
+
+	@Id // chave primária
 	private String id;
 	private String name;
 	private String email;
-	
+
 	public User() {
 	}
 
@@ -65,8 +65,5 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
 
 }
