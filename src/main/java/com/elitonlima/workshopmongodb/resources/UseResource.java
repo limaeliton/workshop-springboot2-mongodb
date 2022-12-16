@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.elitonlima.workshopmongodb.domain.Post;
 import com.elitonlima.workshopmongodb.domain.User;
 import com.elitonlima.workshopmongodb.dto.UserDTO;
 import com.elitonlima.workshopmongodb.services.UseService;
@@ -85,6 +86,13 @@ public class UseResource {
 			
 		}
 		
-	
+		// Endpoint para retornar os posts de um usuário
+		@RequestMapping(value = "/{id}/posts" ,method=RequestMethod.GET)
+		// ResponseEntity<List<User>> = Objeto sofisticado do spring, emcapsula resposta
+		// HTTP
+		public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+			User obj = service.findById(id);
+			return ResponseEntity.ok().body(obj.getPosts());
+		}
 
 }
