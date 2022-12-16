@@ -1,9 +1,12 @@
 package com.elitonlima.workshopmongodb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user") // informa que é do Mongo
@@ -15,6 +18,12 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 
+	// LISTA É UMA INTERFACE E O ARRAYSLIST É UMA IMPLEMENTAÇÃO POSSÍVEL DESSA LISTA.
+	// lista de post é uma coleção.
+	// (lazy = true) garante que os posto so serão carregados se forem acessados.
+	@DBRef(lazy = true) // reconhece que é uma referência 
+	private List<Post> posts = new ArrayList<>();
+	
 	public User() {
 	}
 
@@ -49,6 +58,15 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPots(List<Post> pots) {
+		this.posts = pots;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -66,4 +84,5 @@ public class User implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	
 }

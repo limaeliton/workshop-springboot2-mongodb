@@ -14,6 +14,8 @@ import com.elitonlima.workshopmongodb.dto.AuthorDTO;
 import com.elitonlima.workshopmongodb.repository.PostRepository;
 import com.elitonlima.workshopmongodb.repository.UseRepository;
 
+// CLASSE RESPONSÁVEL PELA CARGA INICIAL DO BANCO CommandLineRunner
+
 @Configuration // O SPRING ENTENDE QUE É UMA CONFIGURAÇÃO.
 public class Instantiation implements CommandLineRunner {
 
@@ -45,6 +47,10 @@ public class Instantiation implements CommandLineRunner {
 		
 		// e depois faz a cópia para o AutoDTO
 		postRepository.saveAll(Arrays.asList(post1,post2));
+		
+		// inclui os posto na lista
+		maria.getPosts().addAll(Arrays.asList(post1, post2));
+		userRepository.save(maria); // e depois salva.
 
 	}
 
