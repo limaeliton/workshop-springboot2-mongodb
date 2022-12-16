@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.elitonlima.workshopmongodb.domain.Post;
 import com.elitonlima.workshopmongodb.domain.User;
 import com.elitonlima.workshopmongodb.dto.AuthorDTO;
+import com.elitonlima.workshopmongodb.dto.CommentDTO;
 import com.elitonlima.workshopmongodb.repository.PostRepository;
 import com.elitonlima.workshopmongodb.repository.UseRepository;
 
@@ -45,7 +46,15 @@ public class Instantiation implements CommandLineRunner {
 		Post post1 = new Post(null, sdf.parse("15/12/2022"), "Viajar", "Vou viajar para Foz. Partil!",new AuthorDTO( maria));
 		Post post2 = new Post(null, sdf.parse("16/12/2022"), "Boa noite", "Vou dormi agora", new AuthorDTO( maria));
 		
-		// e depois faz a cópia para o AutoDTO
+		CommentDTO c1 = new CommentDTO("Boa viagem Vei!", sdf.parse("16/12/2022"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveite!", sdf.parse("16/12/2022"), new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Tudo de bom!", sdf.parse("16/12/2022"), new AuthorDTO(alex));
+		
+		// associa o Post com o comentário.
+		post1.getComments().addAll(Arrays.asList(c1,c2));
+		post2.getComments().addAll(Arrays.asList(c3));
+		
+		// SALVA NO BANCO DE DADOS
 		postRepository.saveAll(Arrays.asList(post1,post2));
 		
 		// inclui os posto na lista
