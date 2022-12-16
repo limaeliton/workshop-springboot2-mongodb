@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,5 +61,16 @@ public class UseResource {
 		// retorna uma resposta vazia com o cod 201.
 		return ResponseEntity.created(uri).build();
 	}
+	
+	
+	// metodo para deletar por  ID
+		@RequestMapping(value = "/{id}" ,method=RequestMethod.DELETE)
+		// ResponseEntity<List<User>> = Objeto sofisticado do spring, emcapsula resposta
+		// HTTP
+		public ResponseEntity<Void> delete(@PathVariable String id) {
+			service.delete(id);
+			return ResponseEntity.noContent().build();
+		}
+	
 
 }
